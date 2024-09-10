@@ -1,0 +1,33 @@
+name: Deploy to Staging
+
+env:
+  APP_NAME: vmms-frontend
+  GHCR_REPOSITORY: vmms-frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare environment variables
+        run: |
+          APP_NAME_SANITIZED=$(echo "${{ env.APP_NAME }}" | tr ':' '-')
+          IMAGE_TAG="$(date '+%H%M%S-%d-%m-%Y')"
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "APP_NAME_SANITIZED=$APP_NAME_SANITIZED" >> $GITHUB_ENV
+
+      - name: Build and push the image
+        run: |
+          docker login --username GITHUBUSERNAME --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build  -t $GHCR_REPOSITORY:$IMAGE_TAG. --tag ghcr.io/dave-mash/vmms-frontend:latest
+          docker push ghcr.io/dave-mash/vmms-frontend:latest
+
+
+
+
