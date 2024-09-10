@@ -27,3 +27,8 @@ jobs:
           docker login --username GITHUBUSERNAME --password ${{ secrets.GH_PAT }} ghcr.io
           docker build -f ./docker/prod.Dockerfile -t $GHCR_REPOSITORY:$IMAGE_TAG --tag ghcr.io/dave-mash/vmms-frontend:latest .
           docker push ghcr.io/dave-mash/vmms-frontend:latest
+
+      # - name: Deploy to VM
+      #   # run: |
+      #   #   ssh lab@102.209.68.72 -p 2112
+          
