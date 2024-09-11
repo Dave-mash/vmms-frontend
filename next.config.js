@@ -30,10 +30,9 @@ const nextConfig = withPWA({
 })
 
 const env = process.env.NODE_ENV === "development" ? {} : {
-  NEXT_PUBLIC_API_BASE_URL: "https://fms-backend-staging.staging.kiotapay.co.ke/api/v1/",
-  NEXTAUTH_URL: "https://fms-backend-staging.staging.kiotapay.co.ke/api/",
-  NEXTAUTH_SECRET: "process.env.NEXTAUTH_SECRET",
-  NEXT_PUBLIC_TEST_ENV: "process.env.NEXT_PUBLIC_TEST_ENV"
+  NEXTAUTH_URL: "http://localhost:3000",
+  NEXTAUTH_SECRET: "secret!JWTrandom65",
+  
 }
 
 module.exports = {
