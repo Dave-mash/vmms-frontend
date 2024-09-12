@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { TextField } from "@radix-ui/themes";
 
 const CustomInput = (props: any) => {
-  const { type, label, options } = props;
+  const { type, label, options, name } = props;
   // return <input className="text-[#3D454F]" {...props} />
   return (
     <>
@@ -20,11 +20,11 @@ const CustomInput = (props: any) => {
           <span className="text-gray-500 sm:text-sm">$</span>
           </div> */}
           {
-            type === 'select' ? <select className="w-full text-[#3D454F] p-[.5rem]" name="">
+            type === 'select' ? <select className="w-full text-[#3D454F] p-[.5rem]" name={name} onChange={props?.onChange}>
               <option>Select Storage</option>
               {
-                options.map((name: string) => (
-                  <option>{name}</option>
+                options.map((_name: string) => (
+                  <option key={_name} value={_name}>{_name}</option>
                 ))
               }
             </select> : <input
