@@ -1,6 +1,9 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "./providers";
+import { Theme } from "@radix-ui/themes";
+import SideBar from "./components/side-bar";
+import NavBar from "./components/nav-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " flex flex-row"}>
-        <NextAuthProvider>
-          {children}
-        </NextAuthProvider>
+      <body className="">
+        {/* <NextAuthProvider>{children}</NextAuthProvider> */}
+        <Theme>
+          <div className="bg-[#D9D9D9] min-h-[100vh]">
+            <NavBar />
+            <SideBar />
+            {children}
+          </div>
+        </Theme>
       </body>
     </html>
   );
