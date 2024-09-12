@@ -6,16 +6,16 @@ import {
   GithubSignInButton,
   GoogleSignInButton,
 } from "@/app/components/authButtons";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+// import { getServerSession } from "next-auth";
+// import { redirect } from "next/navigation";
 import { CredentialsForm } from "@/app/components/credentialsForm";
 import { authOptions } from "./lib/auth";
 // import { getCsrfToken } from "next-auth/react";
 
 export default async function SignInPage() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  console.log("Session: ", session);
+  // console.log("Session: ", session);
 
   // if (session) return redirect("/");
 

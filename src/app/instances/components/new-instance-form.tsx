@@ -7,8 +7,8 @@ import * as yup from "yup";
 
 import CustomInput from "@/app/components/custom-input";
 import { CustomBtn } from "@/app/components/custom-btn";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/dist/client/components/navigation";
 
 const availableImages = [
   {
@@ -43,7 +43,7 @@ const NewInstanceForm = () => {
       storage: "16GB - SSD",
     },
     // validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values: any) => {
       console.log("HERE WE GO...");
       const activeImage = images.filter(({ active }) => active);
       const payload = {
@@ -110,33 +110,6 @@ const NewInstanceForm = () => {
                   </div>
                 </div>
               ))}
-              {/* <div
-                className="flex flex-col w-[5rem] bg-[#fff] h-[6rem] border-2 border-black mr-[1rem] rounded-sm"
-                onClick={() => {}}
-              >
-                <p className="text-[.8rem] text-center mt-[.5rem]">Ubuntu</p>
-                <div className="mt-[40%] flex justify-center">
-                  <FaUbuntu color="#B14927" />
-                </div>
-              </div>
-              <div
-                className="w-[5rem] bg-[#fff] h-[6rem] border-2 mr-[1rem] rounded-sm"
-                onClick={() => {}}
-              >
-                <p className="text-[.8rem] text-center mt-[.5rem]">Windows</p>
-                <div className="mt-[40%] flex justify-center">
-                  <FaWindows color="#B14927" />
-                </div>
-              </div> */}
-              {/* <div
-                className="w-[5rem] bg-[#fff] h-[6rem] border-2 mr-[1rem] rounded-sm"
-                onClick={() => {}}
-              >
-                <p className="text-[.8rem] text-center mt-[.5rem]">Debian</p>
-                <div className="mt-[40%] flex justify-center">
-                  <FcDebian color="#B14927" />
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="bg-[#fff] max-w-[80%] p-[1rem] rounded-sm mb-[1rem] text-[.7rem]">

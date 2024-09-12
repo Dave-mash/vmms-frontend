@@ -23,7 +23,8 @@ export function GoogleSignInButton() {
 
 export function GithubSignInButton() {
   const handleClick = () => {
-    signIn("github");
+    console.log('GITHUB LOGIN  ::::::::::::::::;;')
+    signIn("github", { callbackUrl: "/dashboard" });
   };
 
   return (

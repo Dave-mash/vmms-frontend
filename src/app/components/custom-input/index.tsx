@@ -1,8 +1,5 @@
 "use client";
 
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { TextField } from "@radix-ui/themes";
-
 const CustomInput = (props: any) => {
   const { type, label, options, name } = props;
   // return <input className="text-[#3D454F]" {...props} />
