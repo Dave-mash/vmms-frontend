@@ -14,6 +14,7 @@ import { CredentialsForm } from "@/app/components/credentialsForm";
 import { authOptions } from "@/app/lib/auth";
 import { useRouter } from "next/navigation";
 import LoginForm from "../components/loginForm";
+import Link from "next/link";
 // import { getCsrfToken } from "next-auth/react"; route.ts
 
 export default function SignInPage() {
@@ -70,6 +71,7 @@ export default function SignInPage() {
             Continue as guest
           </button>
         </div>
+        <p className="my-[1rem] font-bold text-white text-[.9rem] text-center">Don't have an account yet? <Link href={"/register"} className="text-[dodgerblue]">Go here</Link></p>
       </div>
     </div>
   );

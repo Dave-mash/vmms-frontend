@@ -1,18 +1,38 @@
 import { Callout, Flex, Link } from "@radix-ui/themes";
 import { IAlertType } from "./types";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { useCallback, useEffect, useState } from "react";
 
-export default function CustomAlert({ type, content }: IAlertType) {
+export default function CustomAlert({
+  type,
+  content,
+  time = 3000,
+}: IAlertType) {
+  const [bg, setBG] = useState("#132D23");
+  const [show, setShow] = useState(true);
+
+  const handleSetBG = useCallback(() => {
+    switch (type) {
+      case "error":
+        setBG("bg-[#E71936]");
+        break;
+      case "success":
+        setBG("bg-[#065F3C]");
+        break;
+    }
+  }, [type]);
+
+  useEffect(() => handleSetBG(), []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(false);
+    }, time);
+  }, []);
+
   return (
-    <Flex direction="column" gap="3">
-      <Callout.Root color="green">
-        <Callout.Icon>
-          <InfoCircledIcon />
-        </Callout.Icon>
-        <Callout.Text>
-          {content}
-        </Callout.Text>
-      </Callout.Root>
-    </Flex>
+    <>
+      {show && <div className={`${bg} rounded-lg p-[.7rem] opacity-[.8]`}>{content}</div>}
+    </>
   );
 }

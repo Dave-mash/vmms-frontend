@@ -13,6 +13,7 @@ import { CredentialsForm } from "@/app/components/credentialsForm";
 import { authOptions } from "@/app/lib/auth";
 import { useRouter } from "next/navigation";
 import RegisterUserForm from "../components/registerUserForm";
+import Link from "next/link";
 // import { getCsrfToken } from "next-auth/react"; route.ts
 
 export default function RegisterPage() {
@@ -51,7 +52,7 @@ export default function RegisterPage() {
       <h1 className="my-[2rem] text-4xl font-bold">Create Account</h1>
       <div className="flex min-w-[80vw] flex-col">
         <RegisterUserForm />
-        <div className="max-w-[50%] mx-auto flex-[50%] flex flex-col justify-center w-[70vw]">
+        <div className="max-w-[50%] mx-auto flex-[50%] flex flex-col justify-center w-[34vw]">
           <span className="text-2xl font-semibold text-white text-center mx-auto flex justify-center">
             Or
           </span>
@@ -65,6 +66,12 @@ export default function RegisterPage() {
             Continue as guest
           </button>
         </div>
+        <p className="my-[1rem] font-bold text-white text-[.9rem] text-center">
+          Already have an account?{" "}
+          <Link href={"/login"} className="text-[dodgerblue]">
+            Go here
+          </Link>
+        </p>
       </div>
     </div>
   );

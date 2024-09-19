@@ -9,48 +9,62 @@ import CustomInput from "@/app/components/custom-input";
 import { CustomBtn } from "@/app/components/custom-btn";
 import { useState } from "react";
 import { useRouter } from "next/dist/client/components/navigation";
-import { getCookie } from "@/app/utils";
+import { getCookie, setCookie } from "@/app/utils";
+import Link from "next/link";
+import CustomAlert from "./custom-alert";
 
+const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
 const LoginForm = () => {
+  const [resMSG, setResMSG] = useState<string | null>(null);
   const router = useRouter();
   const validationSchema = yup.object({
-    name: yup.string().required("Instance name is required"),
-    storage: yup.string().required("Instance name is required"),
+    username: yup.string().required("Username is required"),
+    password: yup.string().required("Password is required"),
   });
-  const handleCreateNewInstance = async (body: any) => {
-    // const accessToken = getCookie("vmms:session");
-    // const response = await fetch(`${baseUrl}/vm/instance/create/`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    //   body,
-    // });
-    // if (!response.ok) {
-    //   throw new Error("Failed to send user data to backend");
-    // }
-    // const result = await response.json();
-    // console.log("::::::::::::: ", result);
-  };
+  const handleUserLogin = async (body: any) => {
+    try {
+      const response = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-type": "form",
+        },
+        body: JSON.stringify(body),
+      });
 
-  const handleRegisterUser = () => {};
+      if (!response.ok) {
+        throw response;
+      }
+
+      const result = await response.json();
+      const sessionPayload = JSON.stringify(result?.access_token);
+
+      setCookie("vmms:session", sessionPayload, 1);
+
+      router.replace("/dashboard");
+    } catch (error: any) {
+      const errorMSG = error?.statusText ?? '';
+      setResMSG(errorMSG);
+      console.error("Error sending data to backend:", error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      storage: "16GB - SSD",
+      username: "",
+      password: "",
     },
     // validationSchema,
     onSubmit: (values: any) => {
       console.log("HERE WE GO...", values);
-      // handleCreateNewInstance(JSON.stringify(payload));
+      handleUserLogin(values);
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="flex mx-auto">
-      <div className="flex justify-between text-[#3D454F] mx-auto">
+    <form onSubmit={formik.handleSubmit} className="flex mx-auto flex-col">
+      {resMSG && <CustomAlert type="error" content={resMSG} time={5000} />}
+      <div className="flex justify-between text-[#3D454F] mx-auto flex-col mt-[1rem]">
         <div className="flex flex-col min-w-[30vw]">
           <div className="flex justify-between">
             <div className="bg-[#fff] p-[1rem] rounded-sm mb-[1rem] mx-auto w-full">
@@ -72,8 +86,7 @@ const LoginForm = () => {
                 label="Password"
                 id="password"
                 name="password"
-                type="text"
-                placeholder="e.g 07..."
+                type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -82,10 +95,13 @@ const LoginForm = () => {
           </div>
           <CustomBtn
             content="Login"
-            onClick={handleRegisterUser}
             btnType="primary"
             color="dodgerblue"
-            styles={["bg-[#44B9D6]", "opacity-[.9]", "hover:opacity-[1], my-[1rem] w-full"]}
+            styles={[
+              "bg-[#44B9D6]",
+              "opacity-[.9]",
+              "hover:opacity-[1], my-[1rem] w-full",
+            ]}
             icon={null}
           />
         </div>
