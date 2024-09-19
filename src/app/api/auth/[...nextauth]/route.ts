@@ -1,4 +1,6 @@
+import axios from "axios";
 import NextAuth, { NextAuthConfig } from "next-auth";
+import { getCookies } from 'next-client-cookies/server';
 import GithubProvider from "next-auth/providers/github";
 
 export const authOptions = {
@@ -11,6 +13,59 @@ export const authOptions = {
     // ...add more providers here
   ],
   callbacks: {
+    async signIn({ user, account }: any) {
+      const cookies = getCookies();
+      console.log('HERE ARE THE COOKIES::::::::::::::::: ',cookies)
+      if (account && user) {
+        try {
+          const { access_token } = account;
+          const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+          console.log("THIS IS FROM /route: ", access_token);
+
+          const response = await fetch(`${baseUrl}/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${access_token}`
+            },
+            body: JSON.stringify({}),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to send user data to backend");
+          }
+
+          const result = await response.json();
+          const sessionPayload = JSON.stringify(result?.access_token);
+          cookies.set('vmms:session', sessionPayload)
+          console.log('COOKIES HAVE BEEN SET: |||||||||||||||||||||||||||||||||||||||')
+          // setCookie('vmms:session', sessionPayload, 7)
+          // Cookies.set('vmms:session', sessionPayload, {
+          //   // httpOnly: false,
+          //   // secure: process.env.NODE_ENV === 'production',
+          //   maxAge: 7, // 1 week (60 * 60 * 24 * 7)
+          //   path: '/',
+          // });
+
+          console.log("Successfully sent GitHub user data to backend:", result);
+        } catch (error) {
+          console.error("Error sending data to backend:", error);
+        }
+      }
+
+      return true;
+    },
+    jwt: async ({ token, user, account }: any) => {
+      if (account && account.access_token) {
+        token.accessToken = account.access_token; // <-- adding the access_token here
+      }
+      return token;
+    },
+    async session({ session, token }: any) {
+      // Pass access token to the client
+      session.accessToken = token.accessToken;
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }: any) {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");

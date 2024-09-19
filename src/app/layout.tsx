@@ -3,11 +3,13 @@ import "./globals.css";
 import Provider from "./providers";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { Theme } from "@radix-ui/themes";
-import { redirect } from "next/navigation";
+// import { useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 import SideBar from "./components/side-bar";
 import NavBar from "./components/nav-bar";
 // import { getServerSession } from "next-auth";
 import { getServerSession } from "next-auth";
+import { useEffect } from "react";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +24,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+  // if (!session) redirect("/login");
 
   return (
     <html lang="en">
       <body className="">
         <Provider>
           <Theme>
-            <div className="bg-[#D9D9D9] min-h-[100vh]">
+            <div className="bg-[#3D454F] min-h-[100vh]">
               <NavBar />
               <SideBar />
               {children}

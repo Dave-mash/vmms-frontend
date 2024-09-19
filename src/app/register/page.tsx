@@ -6,25 +6,20 @@
 import {
   // CredentialsSignInButton,
   GithubSignInButton,
-  GoogleSignInButton,
 } from "@/app/components/authButtons";
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 import { CredentialsForm } from "@/app/components/credentialsForm";
 import { authOptions } from "@/app/lib/auth";
 import { useRouter } from "next/navigation";
-import LoginForm from "../components/loginForm";
+import RegisterUserForm from "../components/registerUserForm";
 // import { getCsrfToken } from "next-auth/react"; route.ts
 
-export default function SignInPage() {
+export default function RegisterPage() {
   const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
   const router = useRouter();
-  // const session = await getServerSession(authOptions);
 
-  // console.log("Session: ", session);
-
-  // if (session) return redirect("/");
-  const handleGuestLogin = () => {
+  const handleRegisterUser = () => {
     fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       headers: {
@@ -53,10 +48,10 @@ export default function SignInPage() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center py-2">
-      <h1 className="my-[2rem] text-4xl font-bold">Sign In</h1>
+      <h1 className="my-[2rem] text-4xl font-bold">Create Account</h1>
       <div className="flex min-w-[80vw] flex-col">
-        <LoginForm />
-        <div className="max-w-[50%] mx-auto flex-[50%] flex flex-col justify-center w-[30vw]">
+        <RegisterUserForm />
+        <div className="max-w-[50%] mx-auto flex-[50%] flex flex-col justify-center w-[70vw]">
           <span className="text-2xl font-semibold text-white text-center mx-auto flex justify-center">
             Or
           </span>
@@ -65,7 +60,7 @@ export default function SignInPage() {
           </div>
           <button
             className="font-bold bg-[#fff] text-[#000] mt-[1rem] text-[1.3rem] rounded-lg py-[.5rem] px-[4rem] border-2 border-[#000]"
-            onClick={handleGuestLogin}
+            onClick={handleRegisterUser}
           >
             Continue as guest
           </button>

@@ -7,8 +7,10 @@ const Instances = () => {
   const [currentInstances, setCurrentInstances] = useState<any[]>();
 
   return (
-    <div className="max-w-[100vw] mx-auto ml-[15%] min-h-[90vh] mt-[1rem] pt-[2rem]">
-      {currentInstances?.length ?? <NoInstances />}
+    <div className="bg-[#D9D9D9] min-h-[95vh] min-w-[100vh]">
+      <div className="bg-[#D9D9D9] max-w-[100vw] mx-auto ml-[10%] pt-[2rem]">
+        {currentInstances?.length ?? <NoInstances />}
+      </div>
     </div>
   );
 };

@@ -9,7 +9,9 @@ import CustomInput from "@/app/components/custom-input";
 import { CustomBtn } from "@/app/components/custom-btn";
 import { useState } from "react";
 import { useRouter } from "next/dist/client/components/navigation";
+import { getCookie } from "@/app/utils";
 
+const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
 const availableImages = [
   {
     name: "Ubuntu",
@@ -34,23 +36,49 @@ const NewInstanceForm = () => {
   const [images, setActiveImage] = useState(availableImages);
   const router = useRouter();
   const validationSchema = yup.object({
-    instanceName: yup.string().required("Instance name is required"),
+    name: yup.string().required("Instance name is required"),
     storage: yup.string().required("Instance name is required"),
   });
+  const handleCreateNewInstance = async (body: any) => {
+    const accessToken = getCookie("vmms:session");
+    const response = await fetch(`${baseUrl}/vm/instance/create/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send user data to backend");
+    }
+
+    const result = await response.json();
+
+    console.log("::::::::::::: ", result);
+  };
+
   const formik = useFormik({
     initialValues: {
-      instanceName: "",
+      name: "",
       storage: "16GB - SSD",
     },
     // validationSchema,
     onSubmit: (values: any) => {
-      console.log("HERE WE GO...");
       const activeImage = images.filter(({ active }) => active);
+      const { storage, name } = values;
+      const storage_type = values.storage.split("-")[1];
+      const storage_size = values.storage.split("-")[0];
       const payload = {
-        image: activeImage[0]?.name ?? "",
-        ...values,
+        image_name: activeImage[0]?.name ?? "",
+        storage_type,
+        storage_size,
+        name,
       };
-      alert(JSON.stringify(payload, null, 2));
+      console.log("HERE WE GO...", payload);
+      // alert(JSON.stringify(payload, null, 2));
+      handleCreateNewInstance(JSON.stringify(payload));
     },
   });
   const handleSelectImage = ({ name, Icon, active, idx, value }: any) => {
@@ -78,10 +106,10 @@ const NewInstanceForm = () => {
             <CustomInput
               label="Instance Name"
               id="name"
-              name="instanceName"
+              name="name"
               type="text"
               placeholder="e.g My Server"
-              value={formik.values.instanceName}
+              value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -143,7 +171,7 @@ const NewInstanceForm = () => {
           </p>
           <ul className="list-disc pl-[1rem]">
             <li className="text-[#0785A4]">
-              {`${formik.values.instanceName}`}{" "}
+              {`${formik.values.name}`}{" "}
               {images?.filter(({ active }) => active)[0]?.value}
             </li>
           </ul>
