@@ -71,7 +71,12 @@ export default function SignInPage() {
             Continue as guest
           </button>
         </div>
-        <p className="my-[1rem] font-bold text-white text-[.9rem] text-center">Don't have an account yet? <Link href={"/register"} className="text-[dodgerblue]">Go here</Link></p>
+        <p className="my-[1rem] font-bold text-white text-[.9rem] text-center">
+          Don't have an account yet?{" "}
+          <Link href={"/register"} className="text-[dodgerblue]">
+            Go here
+          </Link>
+        </p>
       </div>
     </div>
   );

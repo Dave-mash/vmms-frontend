@@ -20,12 +20,13 @@ export default function RegisterPage() {
   const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
   const router = useRouter();
 
-  const handleRegisterUser = () => {
+  const handleGuestLogin = () => {
     fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer Guest`,
+        "Authorization": `Bearer Guest`,
+        "auth-type": "guest",
       },
       body: JSON.stringify({}),
     })
@@ -61,7 +62,7 @@ export default function RegisterPage() {
           </div>
           <button
             className="font-bold bg-[#fff] text-[#000] mt-[1rem] text-[1.3rem] rounded-lg py-[.5rem] px-[4rem] border-2 border-[#000]"
-            onClick={handleRegisterUser}
+            onClick={handleGuestLogin}
           >
             Continue as guest
           </button>

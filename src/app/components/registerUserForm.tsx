@@ -10,47 +10,76 @@ import { CustomBtn } from "@/app/components/custom-btn";
 import { useState } from "react";
 import { useRouter } from "next/dist/client/components/navigation";
 import { getCookie } from "@/app/utils";
+import CustomAlert from "./custom-alert";
 
+const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
 const RegisterUserForm = () => {
+  const [resMSG, setResMSG] = useState<string | null>(null);
   const router = useRouter();
   const validationSchema = yup.object({
     name: yup.string().required("Instance name is required"),
     storage: yup.string().required("Instance name is required"),
   });
-  const handleCreateNewInstance = async (body: any) => {
-    // const accessToken = getCookie("vmms:session");
-    // const response = await fetch(`${baseUrl}/vm/instance/create/`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    //   body,
-    // });
-    // if (!response.ok) {
-    //   throw new Error("Failed to send user data to backend");
-    // }
-    // const result = await response.json();
-    // console.log("::::::::::::: ", result);
-  };
 
-  const handleRegisterUser = () => {};
+  const handleRegisterUser = (data: any) => {
+    fetch(`${baseUrl}/auth/user/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-type": "form",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(':::::: ', data);
+        // const sessionPayload = JSON.stringify(data?.access_token);
+        // document.cookie = `vmms:session=${sessionPayload}; path=/; max-age=3600`; // 1 hour expiration
+        router.replace("/login");
+      })
+      .catch((error) => {
+        const errorMSG = error?.statusText ?? '';
+        setResMSG(errorMSG);
+        console.error("Error:", error);
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      storage: "16GB - SSD",
+      full_name: "",
+      username: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     // validationSchema,
     onSubmit: (values: any) => {
+      const { password, confirmPassword, username, full_name, phone } = values;
+      if (password !== confirmPassword) {
+        return setResMSG("Passwords don't match");;
+      }
+
+      const payload = {
+        username,
+        full_name,
+        password,
+        phone,
+      };
+      handleRegisterUser(payload);
       console.log("HERE WE GO...", values);
-      // handleCreateNewInstance(JSON.stringify(payload));
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="flex mx-auto">
-      <div className="flex justify-between text-[#3D454F] mx-auto">
+    <form onSubmit={formik.handleSubmit} className="flex mx-auto flex-col">
+      {resMSG && <CustomAlert type="error" content={resMSG} time={5000} />}
+      <div className="flex justify-between text-[#3D454F] mx-auto mt-[1rem]">
         <div className="flex flex-col min-w-[30vw]">
           <div className="flex justify-between">
             <div className="bg-[#fff] p-[1rem] rounded-sm mb-[1rem] mx-auto w-full mr-[1rem]">
@@ -108,8 +137,7 @@ const RegisterUserForm = () => {
                 label="Password"
                 id="password"
                 name="password"
-                type="text"
-                placeholder="e.g 07..."
+                type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -121,7 +149,7 @@ const RegisterUserForm = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                value={formik.values.password}
+                value={formik.values.confirmPassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
@@ -129,10 +157,13 @@ const RegisterUserForm = () => {
           </div>
           <CustomBtn
             content="Register"
-            onClick={handleRegisterUser}
             btnType="primary"
             color="dodgerblue"
-            styles={["bg-[#44B9D6]", "opacity-[.9]", "hover:opacity-[1], my-[1rem] w-full"]}
+            styles={[
+              "bg-[#44B9D6]",
+              "opacity-[.9]",
+              "hover:opacity-[1], my-[1rem] w-full",
+            ]}
             icon={null}
           />
         </div>

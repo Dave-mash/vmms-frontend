@@ -26,7 +26,8 @@ export const authOptions = {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${access_token}`
+              "Authorization": `Bearer ${access_token}`,
+              "auth-type": 'github'
             },
             body: JSON.stringify({}),
           });
@@ -39,13 +40,6 @@ export const authOptions = {
           const sessionPayload = JSON.stringify(result?.access_token);
           cookies.set('vmms:session', sessionPayload)
           console.log('COOKIES HAVE BEEN SET: |||||||||||||||||||||||||||||||||||||||')
-          // setCookie('vmms:session', sessionPayload, 7)
-          // Cookies.set('vmms:session', sessionPayload, {
-          //   // httpOnly: false,
-          //   // secure: process.env.NODE_ENV === 'production',
-          //   maxAge: 7, // 1 week (60 * 60 * 24 * 7)
-          //   path: '/',
-          // });
 
           console.log("Successfully sent GitHub user data to backend:", result);
         } catch (error) {

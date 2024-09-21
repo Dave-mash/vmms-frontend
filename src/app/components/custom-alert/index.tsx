@@ -32,7 +32,7 @@ export default function CustomAlert({
 
   return (
     <>
-      {show && <div className={`${bg} rounded-lg p-[.7rem] opacity-[.8]`}>{content}</div>}
+      {show && <div className={`${bg} rounded-lg p-[.7rem] opacity-[.8] text-[#fff]`}>{content}</div>}
     </>
   );
 }
