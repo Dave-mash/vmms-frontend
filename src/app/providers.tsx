@@ -1,11 +1,46 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { Session } from "inspector";
+import { getServerSession } from "next-auth";
+import {
+  getSession,
+  SessionProvider as NextSessionProvider,
+} from "next-auth/react";
+import { redirect, usePathname } from "next/dist/client/components/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-type Props = {
-  children?: React.ReactNode;
-};
+export default function Provider({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactNode {
+  const [session, setSession] = useState<Session | null | undefined>(null);
+  const pathName = usePathname();
 
-export const NextAuthProvider = ({ children }: Props) => {
-  return <SessionProvider>{children}</SessionProvider>;
-};
+  const fetchSession = useCallback(async () => {
+    try {
+      const sessionData: any = await getServerSession(authOptions);
+      setSession(sessionData);
+    } catch (error) {
+      setSession(null);
+
+      if (process.env.NODE_ENV === "development") {
+        console.error(error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchSession().finally();
+  }, [fetchSession, pathName]);
+
+  // @ts-ignore
+  if (session) {
+    redirect("/dashboard");
+  } else {
+    return (
+      <NextSessionProvider session={session}>{children}</NextSessionProvider>
+    );
+  }
+}

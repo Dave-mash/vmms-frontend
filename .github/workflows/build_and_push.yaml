@@ -28,7 +28,16 @@ jobs:
           docker build -f ./docker/prod.Dockerfile -t $GHCR_REPOSITORY:$IMAGE_TAG --tag ghcr.io/dave-mash/vmms-frontend:latest .
           docker push ghcr.io/dave-mash/vmms-frontend:latest
 
-      # - name: Deploy to VM
-      #   # run: |
-      #   #   ssh lab@102.209.68.72 -p 2112
+      - name: SSH into the server and configure kubectl to use the K8s config from GitHub secrets
+        run: |
+          sshpass -p ${{ secrets.VM_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_ADDRESS }} -p ${{ secrets.VM_PORT }} << EOF
+          echo ✅ SSH connection successful
+          docker pull ghcr.io/dave-mash/vmms-frontend:latest
+          echo ✅ docker pull successful
+          kubectl apply -f vmms-deployments/vmms-frontend/deployment.yaml
+          kubectl apply -f vmms-deployments/vmms-frontend/service.yaml
+          Deployed ✅
+          kubectl config view          
+          kubectl get nodes  # Test if kubectl is working
+          EOF
           

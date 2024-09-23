@@ -23,7 +23,9 @@ export function GoogleSignInButton() {
 
 export function GithubSignInButton() {
   const handleClick = () => {
-    signIn("github");
+    console.log('GITHUB LOGIN  ::::::::::::::::;;')
+    document.cookie = "vmms:session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    signIn("github", { callbackUrl: "/dashboard" });
   };
 
   return (
