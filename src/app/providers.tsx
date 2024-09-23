@@ -8,7 +8,7 @@ import {
 } from "next-auth/react";
 import { redirect, usePathname } from "next/dist/client/components/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "./utils";
 
 export default function Provider({
   children,

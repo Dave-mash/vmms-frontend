@@ -100,7 +100,7 @@ const NewInstanceForm = () => {
     if (active === false) {
       const payload = { name, Icon, active: true, value };
       images.splice(idx, 1);
-      const updatedImageList = images.map((image) => ({
+      const updatedImageList = images?.map((image) => ({
         ...image,
         active: false,
       }));

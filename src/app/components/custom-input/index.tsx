@@ -20,7 +20,7 @@ const CustomInput = (props: any) => {
             type === 'select' ? <select className="w-full text-[#3D454F] p-[.5rem]" name={name} onChange={props?.onChange}>
               <option>Select Storage</option>
               {
-                options.map((_name: string) => (
+                options?.map((_name: string) => (
                   <option key={_name} value={_name}>{_name}</option>
                 ))
               }
