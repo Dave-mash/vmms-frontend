@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from "react";
 import { SlOptions } from "react-icons/sl";
 
@@ -9,10 +11,10 @@ interface ITableType {
   options: boolean;
 }
 
-const CustomTable = ({ headings, rows, options }: ITableType) => {
+const CustomTable = ({ headings, rows, options }: any) => {
   useEffect(() => {
     if (options) {
-      rows.forEach((row) => {
+      rows?.forEach((row: any) => {
         row["options"] = "sdffgadfg";
       });
     }
@@ -23,15 +25,15 @@ const CustomTable = ({ headings, rows, options }: ITableType) => {
       <table className="mt-5rem">
         <thead>
           <tr>
-            {headings.map((name: string) => (
+            {headings?.map((name: string) => (
               <th key={name}>{name}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, rowIndex) => (
+          {rows?.map((row: any, rowIndex: any) => (
             <tr key={rowIndex}>
-              {headings.map((heading, colIndex) => (
+              {headings?.map((heading: string, colIndex: number) => (
                 <td
                   key={colIndex}
                   className={

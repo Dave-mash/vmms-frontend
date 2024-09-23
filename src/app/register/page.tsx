@@ -10,7 +10,6 @@ import {
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 import { CredentialsForm } from "@/app/components/credentialsForm";
-import { authOptions } from "@/app/lib/auth";
 import { useRouter } from "next/navigation";
 import RegisterUserForm from "../components/registerUserForm";
 import Link from "next/link";

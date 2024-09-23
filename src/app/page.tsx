@@ -9,11 +9,9 @@ import {
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 import { CredentialsForm } from "@/app/components/credentialsForm";
-import { authOptions } from "./lib/auth";
 // import { getCsrfToken } from "next-auth/react";
 
 export default async function SignInPage() {
-  // const session = await getServerSession(authOptions);
 
   // console.log("Session: ", session);
 

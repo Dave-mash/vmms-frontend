@@ -1,7 +1,6 @@
 import "./globals.css";
 // import { Inter } from "next/font/google";
 import Provider from "./providers";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { Theme } from "@radix-ui/themes";
 // import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
@@ -23,7 +22,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
   // if (!session) redirect("/login");
 
   return (
