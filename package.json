@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "start:prod": "node server.js",
+    "start:prod": "yarn build && yarn start -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
