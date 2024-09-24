@@ -32,7 +32,7 @@ const nextConfig = withPWA({
 const env = process.env.NODE_ENV === "development" ? {} : {
   NEXTAUTH_URL: "http://102.209.68.72:32391",
   NEXTAUTH_SECRET: "secret!JWTrandom65",
-  GITHUB_REGISTRY: "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",
+  // GITHUB_REGISTRY: "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",
   NEXT_PUBLIC_GITHUB_CLIENT_ID: "Ov23li1JRtxLjAH3IO8D",
   NEXT_PUBLIC_GITHUB_CLIENT_SECRET: "e3820c1c46a1ade605e5aa1b7881dd0babefe811",
   NEXT_PUBLIC_VMMS_BACKEND_URL: "http://localhost:3000",
