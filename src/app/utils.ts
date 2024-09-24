@@ -25,8 +25,8 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID ?? "",
-      clientSecret: process.env.GITHUB_SECRET ?? "",
+      clientId: "Ov23li1JRtxLjAH3IO8D", // process.env.GITHUB_ID ?? 
+      clientSecret: "e3820c1c46a1ade605e5aa1b7881dd0babefe811", // process.env.GITHUB_SECRET ?? 
     }),
     // ...add more providers here
   ],
