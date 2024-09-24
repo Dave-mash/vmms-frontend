@@ -14,10 +14,11 @@ import { CredentialsForm } from "@/app/components/credentialsForm";
 import { useRouter } from "next/navigation";
 import LoginForm from "../components/loginForm";
 import Link from "next/link";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 // import { getCsrfToken } from "next-auth/react"; route.ts
 
 export default function SignInPage() {
-  const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+  const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
   const router = useRouter();
 
   // console.log("Session: ", session);
@@ -29,6 +30,7 @@ export default function SignInPage() {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer Guest`,
+        "auth-type": "guest"
       },
       body: JSON.stringify({}),
     })

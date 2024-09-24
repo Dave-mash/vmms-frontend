@@ -11,8 +11,9 @@ import { useState } from "react";
 import { useRouter } from "next/dist/client/components/navigation";
 import { getCookie } from "@/app/utils";
 import CustomAlert from "@/app/components/custom-alert";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 
-const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
 const availableImages = [
   {
     name: "Ubuntu",

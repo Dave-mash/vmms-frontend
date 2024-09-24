@@ -12,8 +12,9 @@ import { useRouter } from "next/dist/client/components/navigation";
 import { getCookie, setCookie } from "@/app/utils";
 import Link from "next/link";
 import CustomAlert from "./custom-alert";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 
-const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
 const LoginForm = () => {
   const [resMSG, setResMSG] = useState<string | null>(null);
   const router = useRouter();
