@@ -206,7 +206,7 @@ const NewInstanceForm = () => {
             <div className="flex mt-[1.5rem]">
               <CustomBtn
                 content="Cancel"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/instances")}
                 btnType="primary-2"
                 color=""
                 icon={null}
