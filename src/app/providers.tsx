@@ -39,7 +39,7 @@ export default function Provider({
 
   // @ts-ignore
   if (session) {
-    redirect("/instances");
+    redirect("/dashboard");
   } else {
     return (
       <NextSessionProvider session={session}>{children}</NextSessionProvider>
