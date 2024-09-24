@@ -39,5 +39,8 @@ jobs:
           Deployed ✅
           kubectl config view          
           kubectl get nodes  # Test if kubectl is working
+          echo restarting pod ✅
+          kubectl rollout restart deployment vmms-frontend
+          echo done ✅
           EOF
           
