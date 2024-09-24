@@ -39,7 +39,7 @@ const env = process.env.NODE_ENV === "development" ? {} : {
   NEXT_PUBLIC_GITHUB_OAUTH_ID: "Ov23li1JRtxLjAH3IO8D",
   AUTH_SECRET: "63APnhoxtwPZCoVzhxq4ROLzw8TEBINMur/2AS1Ymco=",
   // GITHUB_SECRET: "e3820c1c46a1ade605e5aa1b7881dd0babefe811",
-  GITHUB_ID: "Ov23li1JRtxLjAH3IO8D"
+  // GITHUB_ID: "Ov23li1JRtxLjAH3IO8D"
 }
 
 module.exports = {
