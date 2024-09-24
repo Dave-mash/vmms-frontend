@@ -25,7 +25,7 @@ export function GithubSignInButton() {
   const handleClick = () => {
     console.log('GITHUB LOGIN  ::::::::::::::::;;')
     document.cookie = "vmms:session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    signIn("github", { callbackUrl: "/dashboard" });
+    signIn("github", { callbackUrl: "/instances" });
   };
 
   return (

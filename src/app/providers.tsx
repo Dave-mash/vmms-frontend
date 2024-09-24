@@ -25,6 +25,8 @@ export default function Provider({
     } catch (error) {
       setSession(null);
 
+      console.error(error);
+
       if (process.env.NODE_ENV === "development") {
         console.error(error);
       }
@@ -37,7 +39,7 @@ export default function Provider({
 
   // @ts-ignore
   if (session) {
-    redirect("/dashboard");
+    redirect("/instances");
   } else {
     return (
       <NextSessionProvider session={session}>{children}</NextSessionProvider>

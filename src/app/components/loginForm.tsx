@@ -42,7 +42,7 @@ const LoginForm = () => {
 
       setCookie("vmms:session", sessionPayload, 1);
 
-      router.replace("/dashboard");
+      router.replace("/instances");
     } catch (error: any) {
       const errorMSG = error?.statusText ?? '';
       setResMSG(errorMSG);

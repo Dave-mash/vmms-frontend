@@ -32,7 +32,7 @@ const NoInstances = () => {
         <div className="w-[1rem]"></div>
         <CustomBtn
           content="View Documentation"
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push("/404")}
           btnType='primary-2'
           color='#44B9D6'
           icon={<GoArrowUpRight />}

@@ -81,12 +81,12 @@ export const authOptions: NextAuthOptions = {
     // @ts-ignore
     authorized({ auth, request: { nextUrl } }: any) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
+      const isOnDashboard = nextUrl.pathname.startsWith("/instances");
       if (isOnDashboard) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        return Response.redirect(new URL("/dashboard", nextUrl));
+        return Response.redirect(new URL("/instances", nextUrl));
       }
       return true;
     },
