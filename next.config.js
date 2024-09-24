@@ -30,9 +30,8 @@ const nextConfig = withPWA({
 })
 
 const env = process.env.NODE_ENV === "development" ? {} : {
-  NEXTAUTH_URL: "http://102.209.68.72:32391",
-  NEXTAUTH_SECRET: "secret!JWTrandom65",
-  
+  NEXTAUTH_URL: "http://102.209.68.72:31079",
+  NEXTAUTH_SECRET: "secret!JWTrandom65"
 }
 
 module.exports = {
