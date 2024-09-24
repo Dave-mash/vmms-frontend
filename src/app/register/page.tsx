@@ -41,7 +41,7 @@ export default function RegisterPage() {
         // cookies.set("vmms:session", sessionPayload);
         document.cookie = `vmms:session=${sessionPayload}; path=/; max-age=3600`; // 1 hour expiration
         // document.cookie = "myCookie=myValue; path=/; max-age=3600";
-        router.replace("/instances");
+        router.replace("/dashboard");
       })
       .catch((error) => {
         console.error("Error:", error); // Handle any errors
