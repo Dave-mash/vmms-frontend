@@ -13,10 +13,11 @@ import { CredentialsForm } from "@/app/components/credentialsForm";
 import { useRouter } from "next/navigation";
 import RegisterUserForm from "../components/registerUserForm";
 import Link from "next/link";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 // import { getCsrfToken } from "next-auth/react"; route.ts
 
 export default function RegisterPage() {
-  const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+  const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
   const router = useRouter();
 
   const handleGuestLogin = () => {

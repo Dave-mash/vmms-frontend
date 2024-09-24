@@ -1,3 +1,4 @@
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { getCookies } from 'next-client-cookies/server';
@@ -36,7 +37,7 @@ export const authOptions: NextAuthOptions = {
       if (account && user) {
         try {
           const { access_token } = account;
-          const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+          const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
           console.log("THIS IS FROM /route: ", access_token);
 
           const response = await fetch(`${baseUrl}/auth/login`, {

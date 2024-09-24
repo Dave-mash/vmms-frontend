@@ -4,8 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import NoInstances from "./components/no-instances";
 import CustomTable from "../components/custom-table/page";
 import { getCookie } from "../utils";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 
-const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
 const Instances = () => {
   const [currentInstances, setCurrentInstances] = useState<any[]>([]);
 

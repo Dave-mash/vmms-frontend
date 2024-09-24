@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { getCookie } from "@/app/utils";
 import CustomInput from "../custom-input";
 import { FaBell, FaGear } from "react-icons/fa6";
+import { NEXT_PUBLIC_VMMS_BACKEND_URL } from "@/middleware";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -24,7 +25,7 @@ const NavBar = () => {
   const handleGetUserProfile = useCallback(async () => {
     try {
       console.log("THIS THE TOKEN: ");
-      const baseUrl = process.env.NEXT_PUBLIC_VMMS_BACKEND_URL;
+      const baseUrl = NEXT_PUBLIC_VMMS_BACKEND_URL;
       const accessToken = getCookie("vmms:session");
       if (!accessToken) {
         router.replace("/login");
